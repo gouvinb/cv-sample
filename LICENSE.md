@@ -7,7 +7,7 @@ See :
 
 ## Cv-sample
 
-```md
+```markdown
                     GNU GENERAL PUBLIC LICENSE
                        Version 3, 29 June 2007
 
