@@ -70,12 +70,21 @@ in case TO-DATE is nil return Present"
 INFO is a plist used
 as a communication channel."
   (let ((title (org-export-data (org-element-property :title headline) info)))
-    `((title . ,title)
+    `((title     . ,title)
       (from-date . ,(or (org-element-property :FROM headline)
                         (error "No FROM property provided for cventry %s" title)))
-      (to-date . ,(org-element-property :TO headline))
-      (employer . ,(org-element-property :EMPLOYER headline))
-      (location . ,(or (org-element-property :LOCATION headline) "")))))
+      (to-date   . ,(org-element-property :TO headline))
+      (employer  . ,(org-element-property :EMPLOYER headline))
+      (location  . ,(or (org-element-property :LOCATION headline) "")))))
+
+(defun org-cv-utils--parse-cvachievement (headline info)
+  "Return alist describing the achievement.
+INFO is a plist used
+as a communication channel."
+  (let ((title (org-export-data (org-element-property :title headline) info)))
+    `((title . ,title)
+      (icon  . ,(concat "\\fa" (org-element-property :ICON headline))
+))))
 
 ;;; User-Configurable Variables
 
@@ -222,6 +231,18 @@ as a communication channel."
                                               (alist-get 'to-date entry))
             (alist-get 'location entry) contents divider)))
 
+(defun org-altacv--format-cvachievement (headline contents info)
+  "Format HEADLINE as as cvachievement.
+CONTENTS holds the contents of the headline.  INFO is a plist used
+as a communication channel."
+  (let* ((entry (org-cv-utils--parse-cvachievement headline info))
+         (divider (if (org-export-last-sibling-p headline info) "\n" "\\divider")))
+    (format "\n\\cvachievement{%s}{%s}{%s}\n%s"
+            (alist-get 'icon entry)
+            (alist-get 'title entry)
+            contents
+            divider)))
+
 ;;;; Headline
 (defun org-altacv-headline (headline contents info)
   "Transcode HEADLINE element into altacv code.
@@ -230,11 +251,21 @@ as a communication channel."
   (unless (org-element-property :footnote-section-p headline)
     (let ((environment (let ((env (org-element-property :CV_ENV headline)))
                          (or (org-string-nw-p env) "block"))))
+
       (cond
+       ;; is a cv achievement
+       ((equal environment "cvachievement")
+        (org-altacv--format-cvachievement headline contents info))
+       ((org-export-with-backend 'latex headline contents info))
+
        ;; is a cv entry
        ((equal environment "cventry")
         (org-altacv--format-cventry headline contents info))
-       ((org-export-with-backend 'latex headline contents info))))))
+       ((org-export-with-backend 'latex headline contents info))
+
+       )
+      )
+    ))
 
 (provide 'ox-altacv)
 ;;; ox-altacv ends here

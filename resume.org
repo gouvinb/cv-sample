@@ -26,15 +26,21 @@
 
 * Most Proud of
 
-#+BEGIN_EXPORT latex
-\cvachievement{\faTrophy}{Fantastic Achievement}{and some details about it}
-\divider
+** Fantastic Achievement
+:PROPERTIES:
+:CV_ENV:   cvachievement
+:ICON:     Trophy
+:END:
 
-\cvachievement{\faHeartbeat}{Another achievement}{more details about it of course}
-\divider
+and some details about it.
 
-\cvachievement{\faHeartbeat}{Another achievement}{more details about it of course}
-#+END_EXPORT
+** Another achievement
+:PROPERTIES:
+:CV_ENV:   cvachievement
+:ICON:     Heartbeat
+:END:
+
+more details about it of course.
 
 * Strengths
 
@@ -187,7 +193,6 @@ A short abstract would also work.
 - Conway D. (2000), Object Oriented Perl: /A comprehensive guide to concepts and
   programming techniques/. Connecticut, USA: Manning Publications Co.
 
-
 #+BEGIN_EXPORT latex
 \divider
 #+END_EXPORT
@@ -199,14 +204,11 @@ A short abstract would also work.
 - Meyer B. (2000), A constraint-based framework for diagrammatic reasoning.
   /Applied Artificial Intelligence, 14/ 327--344.
 
-
 #+BEGIN_EXPORT latex
 \divider
 #+END_EXPORT
 
 ** \faUsers Conference Proceedings
-
-
 
 - Zou, W. Y., Socher, R., Cer, D. M., & Manning, C. D. (2013). Bilingual word
   embeddings for phrase-based machine translation. In
