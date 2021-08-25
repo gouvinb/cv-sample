@@ -1,16 +1,29 @@
 # Cv-sample
 
-## Alternative curriculum vitae/résumé class with github.com/liantze/AltaCV and a fork of gitlab.com/Titan-C/org-cv
+## Alternative curriculum vitae/résumé class with AltaCV and a fork of org-cv
 
-TODO
+Cv-sample is an org file for generating a resume when saving. It is based on
+[AltaCV](https://github.com/liantze/AltaCV) and inspired by
+[org-cv](https://gitlab.com/Titan-C/org-cv).
 
-## Installation
+The main goal of this project is to write a resume with the org syntax.
 
-This project is not on MELPA so you have to do a manual installation. First clone this git
-repository.
+## Demo
+
+![Demo (duplicate frames dropped)](assets/demo.gif "Demo (duplicate frames dropped)")
+
+## Requirements
+
+- Emacs 27+
+  - org-mode
+  - ox-extra
+
+## Installation and start-up project
 
 ```bash
 $ git clone --recurse-submodules https://github.com/gouvinb/cv-sample.git
+$ cd cv-sample
+$ emacs resume.org 
 ```
 
 ## Basic Org file
@@ -74,7 +87,87 @@ I write about awesome stuff I do.
 
 ## Latex Exporter
 
-TODO
+The style of this CV is more involved and you need some configuration in `headers.org` file to get
+it to work.
+
+First define the margins, the large margin to the right is to allow for a second column.
+
+```org
+#+LATEX_HEADER: \geometry{
+#+LATEX_HEADER:   left=1cm,
+#+LATEX_HEADER:   right=8.5cm,
+#+LATEX_HEADER:   marginparwidth=6.5cm,
+#+LATEX_HEADER:   marginparsep=1cm,
+#+LATEX_HEADER:   top=1cm,
+#+LATEX_HEADER:   bottom=1cm
+#+LATEX_HEADER:  }
+```
+
+Then define the fonts and their colors.
+
+```org
+#+LATEX_HEADER: % Change the font if you want to, depending on whether
+#+LATEX_HEADER: % you're using pdflatex or xelatex/lualatex
+#+LATEX_HEADER: \ifxetexorluatex
+#+LATEX_HEADER:   % If using xelatex or lualatex:
+#+LATEX_HEADER:   \setmainfont{Roboto Slab}
+#+LATEX_HEADER:   \setsansfont{Lato}
+#+LATEX_HEADER:   \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \else
+#+LATEX_HEADER:   % If using pdflatex:
+#+LATEX_HEADER:   \usepackage[rm]{roboto}
+#+LATEX_HEADER:   \usepackage[defaultsans]{lato}
+#+LATEX_HEADER:   % \usepackage{sourcesanspro}
+#+LATEX_HEADER:   \renewcommand{\familydefault}{\sfdefault}
+#+LATEX_HEADER: \fi
+
+#+LATEX_HEADER: \definecolor{colorPrimary}{HTML}{3ddb84}
+#+LATEX_HEADER: \definecolor{colorPrimaryVariant}{HTML}{052409}
+#+LATEX_HEADER: \definecolor{colorOnPrimary}{HTML}{FFFFFF}
+#+LATEX_HEADER: \definecolor{colorSecondary}{HTML}{4387f4}
+#+LATEX_HEADER: \definecolor{colorSecondaryVariant}{HTML}{072f41}
+#+LATEX_HEADER: \definecolor{colorOnSecondary}{HTML}{000000}
+#+LATEX_HEADER: \definecolor{colorBackground}{HTML}{FFFFFF}
+#+LATEX_HEADER: \definecolor{colorOnBackground}{HTML}{000000}
+#+LATEX_HEADER: \definecolor{colorSurface}{HTML}{FFFFFF}
+#+LATEX_HEADER: \definecolor{colorOnSurface}{HTML}{000000}
+#+LATEX_HEADER: \definecolor{colorError}{HTML}{B00020}
+#+LATEX_HEADER: \definecolor{colorOnError}{HTML}{FFFFFF}
+
+#+LATEX_HEADER: \colorlet{accent}{colorSecondary}
+#+LATEX_HEADER: \colorlet{emphasis}{colorPrimaryVariant}
+#+LATEX_HEADER: \colorlet{heading}{colorPrimary}
+#+LATEX_HEADER: \colorlet{headingrule}{colorPrimary}
+#+LATEX_HEADER: \colorlet{subheading}{colorPrimaryVariant}
+#+LATEX_HEADER: \colorlet{body}{colorOnSurface}
+#+LATEX_HEADER: \colorlet{name}{colorOnSurface}
+#+LATEX_HEADER: \colorlet{tagline}{colorSecondary}
+#+LATEX_HEADER: \hypersetup{
+#+LATEX_HEADER:   colorlinks=true,
+#+LATEX_HEADER:   linkcolor={colorSecondaryVariant},
+#+LATEX_HEADER:   anchorcolor={colorSecondaryVariant},
+#+LATEX_HEADER:   citecolor={colorSecondaryVariant},
+#+LATEX_HEADER:   filecolor={colorSecondaryVariant},
+#+LATEX_HEADER:   menucolor={colorSecondaryVariant},
+#+LATEX_HEADER:   runcolor={colorSecondaryVariant},
+#+LATEX_HEADER:   urlcolor={colorSecondaryVariant},
+#+LATEX_HEADER: }
+
+#+LATEX_HEADER: % Change some fonts, if necessary
+#+LATEX_HEADER: \renewcommand{\namefont}{\Huge\rmfamily\bfseries}
+#+LATEX_HEADER: \renewcommand{\personalinfofont}{\footnotesize}
+#+LATEX_HEADER: \renewcommand{\cvsectionfont}{\LARGE\rmfamily\bfseries}
+#+LATEX_HEADER: \renewcommand{\cvsubsectionfont}{\large\bfseries}
+```
+
+You can change the bullets for the itemize and rating marker.
+
+```org
+#+LATEX_HEADER: % Change the bullets for itemize and rating marker
+#+LATEX_HEADER: % for \cvskill if you want to
+#+LATEX_HEADER: \renewcommand{\itemmarker}{{\small\textbullet}}
+#+LATEX_HEADER: \renewcommand{\ratingmarker}{\faCircle}
+```
 
 ## License
 
