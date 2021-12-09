@@ -256,13 +256,12 @@ as a communication channel."
        ;; is a cv achievement
        ((equal environment "cvachievement")
         (org-altacv--format-cvachievement headline contents info))
-       ((org-export-with-backend 'latex headline contents info))
-
+ 
        ;; is a cv entry
        ((equal environment "cventry")
         (org-altacv--format-cventry headline contents info))
-       ((org-export-with-backend 'latex headline contents info))
 
+       ((org-export-with-backend 'latex headline contents info))
        )
       )
     ))
