@@ -16,15 +16,49 @@ The main goal of this project is to write a resume with the org syntax.
 
 - Emacs 27+
   - org-mode
-  - ox-extra
+  - ox-extra with configuration `(ox-extras-activate '(latex-header-blocks ignore-headlines))`
+    - For example:
+    
+    ```
+    (use-package! ox-extra
+        :straight org-contrib
+        :init
+        :config
+        (ox-extras-activate '(latex-header-blocks ignore-headlines)))
+    ```
 
 ## Installation and start-up project
+
+1. Clone or fork this project and open `resume.org`
 
 ```bash
 $ git clone --recurse-submodules https://github.com/gouvinb/cv-sample.git
 $ cd cv-sample
-$ emacs resume.org 
+$ emacs resume.org
 ```
+
+2. For the following text:
+   
+   ```txt
+   The local variables list in resume.org
+   contains values that may not be safe (*).
+
+    Do you want to apply it?  You can type
+    y -- to apply the local variables list.
+    n -- to ignore the local variables list.
+    !  -- to apply the local variables list, and permanently mark these
+          values (*) as safe (in the future, they will be set automatically.)
+
+    * org-confirm-babel-evaluate : nil
+    * eval : (add-hook 'before-save-hook (lambda nil (org-babel-ref-resolve "onsaveblock")) nil t)
+    ```
+    
+    Accept for the current session with response `y` or permanently mark these with `!`
+
+3. Write about awesome stuff you do and save.
+   - When saving, the code in the `Org-mode file config` section will be executed to generate a PDF
+     and move it to the output folder at the root of the project.
+4. Enjoy your curriculum vitae. 
 
 ## Basic Org file
 
